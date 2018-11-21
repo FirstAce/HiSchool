@@ -1,13 +1,11 @@
-# hischool(하이, 스쿨!)
+# HiSchool(하이, 스쿨!)
 
 ## 기본 설정 
 
 ### Play 생성
 
 #### 이름
-```
-hischool
-```
+`HiSchool`
 
 ### 기본 응답 
 
