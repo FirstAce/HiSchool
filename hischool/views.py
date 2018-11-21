@@ -8,3 +8,8 @@ from flask import (
     url_for,
     session
 )
+
+@app.route('/health')
+def healthCheck():
+    return 'OK'
+    
