@@ -9,5 +9,5 @@ app.logger.propagate = True
 
 db = SQLAlchemy(app)
 
-import highschool.views
-import highschool.db
+import hischool.views
+import hischool.db

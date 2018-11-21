@@ -1,5 +1,5 @@
-from highschool import app
-from highschool.database import *
+from hischool import app
+from hischool.database import *
 from flask import (
     render_template,
     redirect,
