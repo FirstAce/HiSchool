@@ -1,6 +1,7 @@
 import json, requests, re, urllib.parse
 from bs4 import BeautifulSoup
 from datetime import date, timedelta
+from hischool.database import *
 
 sc_types = {
     "유치원": "01",
@@ -74,8 +75,17 @@ def getMeal(query, meal_type, days):
     # query: keyword to search school name
     # meal_type: in [1, 2, 3]
     # days: how many days to query from now?
-
-    school = searchSchool(query)
+    
+    school = School.query.filter_by(keyword=query).first()
+    if school:
+        school = school.data 
+    else:
+        school = searchSchool(query)
+        try:
+            db.session.add(School(keyword=query, data=school))
+            db.session.commit()
+        except:
+            print('[*] DB commit error')
     query_date = date.today() + timedelta(days=days)
     day = query_date.weekday() + 1
     URL = getMealTableURL(school, meal_type, query_date)

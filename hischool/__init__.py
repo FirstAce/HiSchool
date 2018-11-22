@@ -10,4 +10,4 @@ app.logger.propagate = True
 db = SQLAlchemy(app)
 
 import hischool.views
-import hischool.db
+import hischool.database

@@ -1,5 +1,5 @@
 from hischool import app
-from hischool.db import *
+from hischool.database import *
 from hischool.meal import getMeal
 from flask import (
     render_template,

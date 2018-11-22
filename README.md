@@ -107,6 +107,8 @@ searchSchool('은여울중학교')
 | :------- | :--------- |
 | `dict`   | 학교 정보가 반환됨 |
 
+> **참고:** 새로운 데이터는 DB에 `query:school_info`로 저장되고, 함수는 파싱 전 먼저 DB를 서칭한다.
+
 #### getMealTableURL
 ```py
 result = searchSchool('은여울중학교')
