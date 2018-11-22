@@ -1,17 +1,12 @@
 import json, requests, re, urllib.parse
 from bs4 import BeautifulSoup
-
-sc_meals = {
-    "아침": 1,
-    "점심": 2,
-    "저녁": 3
-}
+from datetime import date, timedelta
 
 sc_types = {
-    "유치원": 1,
-    "초등학교": 2,
-    "중학교": 3,
-    "고등학교": 4
+    "유치원": "01",
+    "초등학교": "02",
+    "중학교": "03",
+    "고등학교": "04"
 }
 
 sc_offices = {
@@ -47,7 +42,7 @@ def getEduOfficeURL(address):
 
 def searchSchool(query):
     html = requests.post('https://www.meatwatch.go.kr/biz/bm/sel/schoolListPopup.do', 
-        data={ 'criteria': 'pageIndex=1&bsnmNm=' + urllib.parse.quote_plus(quary) }).text
+        data={ 'criteria': 'pageIndex=1&bsnmNm=' + urllib.parse.quote_plus(query) }).text
     for result in BeautifulSoup(html, 'html.parser').find_all('tbody')[1].find_all('tr'):
         search_item = [data.string for data in result.find_all('td')]
         search_result = {
@@ -60,9 +55,50 @@ def searchSchool(query):
     search_result['office'] = getEduOfficeURL(search_result['address'])
     return search_result
 
-def getMeal(school_info):
-    pass
-    
+def getMealTableURL(school_info, meal_type, query_date):
+    # (dict)school_info, (int)meal_type, (date obj / 'yyyy.mm.dd' formatted string)query_date
+    if type(query_date) == date:
+        query_date = query_date.today().strftime('%Y.%m.%d')
+    elif type(query_date) != str:
+        return False
+    return (
+        'http://' + school_info['office'] + '/sts_sci_md01_001.do?' # school office
+        'schulCode=' + school_info['sccode'] + # school code 
+        '&schulCrseScCode=' + str(int(school_info['type'])) + # school type -> 1 digit
+        '&schulKndScCode=' + school_info['type'] + # school kind
+        '&schMmealScCode=' + str(meal_type) + # school meal_type (1: 아침, 2: 점심, 3: 저녁)
+        '&schYmd=' + query_date # 'yyyy.mm.dd' formatted string
+    )
+
+def getMeal(query, meal_type, days): 
+    # query: keyword to search school name
+    # meal_type: in [1, 2, 3]
+    # days: how many days to query from now?
+
+    school = searchSchool(query)
+    query_date = date.today() + timedelta(days=days)
+    day = query_date.weekday() + 1
+    URL = getMealTableURL(school, meal_type, query_date)
+
+    # https://github.com/junhoyeo/eunyeoul-chatbot-flask/blob/master/mealparser.py
+    # using what I coded before: optimise later(todo)
+    html = requests.get(URL).text # 생성한 URL의 html 저장
+    soup = BeautifulSoup(html, 'html.parser') # BeautifulSoup 객체 생성
+    data = soup.find_all('tr')[2].find_all('td') # 식단표 부분 데이터만 찾아서 저장
+    try:
+        data = str(BeautifulSoup(html, 'html.parser').find_all('tr')[2].find_all('td')[day])
+        for filter_data in ['[', ']', '<td class="textC">', '<td class="textC last">', '</td>', '.']:
+            data = data.replace(filter_data, '') # filter html tags
+        data = data.split('<br/>')
+        data = data[:len(data)-1]
+        for idx, item in enumerate(data):
+            for char in reversed(item):
+                if char.isdigit(): data[idx] = data[idx][:-1]
+                else: break
+                # crop allergy infomation so it do not damage things like '바나나우유(500ml)'
+        return data[:-1] # strip last newline        
+    except:
+        return None
+
 if __name__ == '__main__':
-    result = searchSchool('한국디지털미디어고')
-    print(result)
+    print(getMeal('은여울중학교', 2, 0))

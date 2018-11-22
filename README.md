@@ -45,17 +45,40 @@
 
 #### searchSchool
 ```py
-searchSchool('한국디지털미디어고')
+searchSchool('은여울중학교')
 ```
 
 | 이름        | 타입      | 설명        |
 | :--------- | :------- | :--------- |
 | `query`    | `string` | 검색할 학교 이름 및 키워드 |
 
-```python
-{'name': '한국디지털미디어고등학교', 'sccode': 'J100000855', 'address': '경기도 안산시 단원구 사세충열로 94 (와동,한국디지털미디어고등학교)', 'type': 4, 'office': 'stu.goe.go.kr'}
+```py
+{'name': '은여울중학교', 'sccode': 'J100006779', 'address': '경기도 김포시 김포한강8로 173-48 (마산동)', 'type': '03', 'office': 'stu.goe.go.kr'}
 ```
 
 | 타입      | 설명        |
 | :------- | :--------- |
 | `dict`   | 학교 정보가 반환됨 |
+
+#### getMealTableURL
+```py
+result = searchSchool('은여울중학교')
+getMealTableURL(result, 2, datetime.date.today())
+```
+
+| 이름           | 타입      | 설명        |
+| :------------ | :------- | :--------- |
+| `school_info` | `dict` | 검색할 학교 이름 및 키워드 |
+| `meal_type`   | `int`  | 급식 종류(아침/조식: `1`, 점심/중식: `2`, 저녁/석식: `3`) |
+| `query_date`  | `datetime.date` 또는 `yyyy.mm.dd` 형식의 `string` | 검색할 날짜 |
+
+```text
+http://stu.goe.go.kr/sts_sci_md01_001.do?schulCode=J100006779&schulCrseScCode=3&schulKndScCode=03&schMmealScCode=2&schYmd=2018.11.23
+```
+
+| 타입      | 설명        |
+| :------- | :--------- |
+| `string` | 식단을 파싱할 NEIS URL |
+
+#### getMeal
+급식을 가져온다.
