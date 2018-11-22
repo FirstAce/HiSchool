@@ -39,7 +39,54 @@
 2. `내일`, `급식`
 3. `급식`
 
-## Docs
+## API
+
+### health
+`/health` returns status code `200` with `OK`
+
+### getMeal
+`/getMeal`, POST
+
+```json
+{
+    "version": "2.0",
+    "action": {
+        "actionName": "getMeal",
+        "parameters": {
+            "query": {
+                "type": "string",
+                "value": "은여울중학교"
+            },
+            "meal_type": {
+                "type": "int",
+                "value": 2
+            },
+            "days": {
+                "type": "string",
+                "value": 0
+            }
+        }
+    },
+}
+```
+
+| 이름         | 타입      | 설명        |
+| :---------- | :------- | :--------- |
+| `query`     | `string` | 검색할 학교 이름 및 키워드 |
+| `meal_type` | `int`    | 급식 종류(아침/조식: `1`, 점심/중식: `2`, 저녁/석식: `3`) |
+| `days`      | `int`    | 오늘로부터 조회할 날짜까지의 날 수 |
+
+```json
+{
+    "version": "2.0",
+    "resultCode": "OK",
+    "output": {
+        "meal": "기장밥\n근대된장국(중)\n안동찜닭(중)\n도라지진미채볶음(중)\n메론(중)\n깍두기"
+    }
+}
+```
+
+## Functions
 
 ### hischool.meal
 

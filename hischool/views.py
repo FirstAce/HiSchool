@@ -26,5 +26,5 @@ def meal():
         'resultCode': 'OK',
         'output': {} 
     }
-    resp['output']['meal'] = getMeal(query, meal_type, days)
+    resp['output']['meal'] = '\n'.join(getMeal(query, meal_type, days))
     return json.dumps(resp, ensure_ascii=False, indent=4)
