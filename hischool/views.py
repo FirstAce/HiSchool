@@ -1,5 +1,6 @@
 from hischool import app
 from hischool.db import *
+from hischool.meal import getMeal
 from flask import (
     render_template,
     redirect,
@@ -14,13 +15,16 @@ import json
 def healthCheck():
     return 'OK'
     
-@app.route('/getMeal/<school>', methods=['GET', 'POST'])
+@app.route('/getMeal', methods=['POST'])
 def meal():
-    # req = request.json
+    req = request.json
+    query = req['action']['parameters']['query']['value']
+    meal_type = req['action']['parameters']['meal_type']['value']
+    days = req['action']['parameters']['days']['value']
     resp = { 
         'version': '2.0', 
         'resultCode': 'OK',
         'output': {} 
     }
-    resp['output']['meal'] = getMeal()
+    resp['output']['meal'] = getMeal(query, meal_type, days)
     return json.dumps(resp, ensure_ascii=False, indent=4)
