@@ -96,7 +96,7 @@ def getMeal(query, meal_type, days):
                 if char.isdigit(): data[idx] = data[idx][:-1]
                 else: break
                 # crop allergy infomation so it do not damage things like '바나나우유(500ml)'
-        return data[:-1] # strip last newline        
+        return data
     except:
         return None
 
