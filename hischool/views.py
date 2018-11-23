@@ -18,8 +18,11 @@ def healthCheck():
 def home():
     req = request.json
     print(request.json)
-    if req['action']['actionName'] == 'getMeal':
+    action = req['action']['actionName']
+    if action == 'getMeal':
         return getMeal(req)
-    elif req['action']['actionName'] == 'getQuote':
+    elif action == 'getQuote':
         return getQuote()
+    elif action == 'getSchedule':
+        return getSchedule(req)
     return ''

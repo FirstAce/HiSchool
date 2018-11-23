@@ -109,9 +109,9 @@ def parseMeal(query, meal_type, days):
                 if char.isdigit(): data[idx] = data[idx][:-1]
                 else: break
                 # crop allergy infomation so it do not damage things like '바나나우유(500ml)'
-        return data
+        return data, query_date.strftime('%Y년 %m월 %d일'), ['아침', '점심', '저녁'][meal_type - 1]
     except:
-        return None
+        return None, query_date.strftime('%Y년 %m월 %d일'), ['아침', '점심', '저녁'][meal_type - 1]
 
 if __name__ == '__main__':
     print(parseMeal('은여울중학교', 2, 0))
