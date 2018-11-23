@@ -45,7 +45,6 @@
 `/health` returns status code `200` with `OK`
 
 ### getMeal
-`/getMeal`, POST
 
 ```json
 {
@@ -82,6 +81,29 @@
     "resultCode": "OK",
     "output": {
         "meal": "기장밥\n근대된장국(중)\n안동찜닭(중)\n도라지진미채볶음(중)\n메론(중)\n깍두기"
+    }
+}
+```
+
+### getQuote
+
+```json
+{
+    "version": "2.0",
+    "action": {
+        "actionName": "getQuote",
+        "parameters": {}
+    },
+}
+```
+
+```json
+{
+    "version": "2.0",
+    "resultCode": "OK",
+    "output": {
+        "quote": "나는 내 인생의 나머지 부분을 위해 내 경력을 연기 할 수 있다면 좋겠다.",
+        "author": "클로이 모렐츠"
     }
 }
 ```
