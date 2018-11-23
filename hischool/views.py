@@ -21,8 +21,10 @@ def home():
     action = req['action']['actionName']
     if action == 'getMeal':
         return getMeal(req)
-    elif action == 'getQuote':
-        return getQuote()
+    elif action == 'getKorQuote':
+        return getKorQuote()
+    elif action == 'getEngQuote':
+        return getEngQuote()
     elif action == 'getSchedule':
         return getSchedule(req)
     return ''

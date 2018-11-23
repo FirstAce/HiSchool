@@ -59,7 +59,15 @@ def getSchedule(req):
     }
     return json.dumps(resp, ensure_ascii=False, indent=4)
 
-def getQuote():
+def getKorQuote():
+    resp = { 
+        'version': '2.0', 
+        'resultCode': 'OK',
+        'output': parseQuote(lang='ko')
+    }
+    return json.dumps(resp, ensure_ascii=False, indent=4)
+
+def getEngQuote():
     resp = { 
         'version': '2.0', 
         'resultCode': 'OK',
