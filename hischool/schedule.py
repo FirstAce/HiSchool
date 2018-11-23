@@ -24,7 +24,7 @@ def parseSchedule(query, query_month):
         except:
             print('[*] DB commit error')
     URL = getScheduleURL(school, query_year, query_month)
-    print(URL)
+    # print(URL)
     html = requests.get(URL).text
     soup = BeautifulSoup(html, 'html.parser')
     rows = soup.select('tr')
