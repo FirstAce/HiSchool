@@ -98,8 +98,8 @@ def getSchool(req):
         'version': '2.0', 
         'resultCode': 'OK',
         'output': {
-            'meal': meal,
-            'schedule': result
+            'scmeal': meal,
+            'scschedule': result
         } 
     }
     return json.dumps(resp, ensure_ascii=False, indent=4)
