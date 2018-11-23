@@ -89,11 +89,12 @@ def getSchool(req):
     query_month = date.today().month # DT_YMONTH
     this = parseSchedule(query, query_month)
     try:
-        this = {k: v.replace('\n\n', ' 그리고 ') for k, v in this.items() if v}
-        result = ', '.join([str(key) + '일은 ' + this[key] for key in this])
-        result = str(query_month) + '월 일정입니다. ' + result + '입니다.'
+        result = {k: v.replace('\n\n', ' 그리고 ') for k, v in this.items() if v}
+        result = '오늘은 ' + result[date.today().day] + '이예요.'
     except:
-        result = this
+        result = '오늘의 학사일정이 없습니다.'
+    # except:
+    #     result = this
     resp = { 
         'version': '2.0', 
         'resultCode': 'OK',

@@ -5,27 +5,15 @@
 ### Play 생성
 
 #### 이름
-`HiSchool`
+`누구의 소리`
 
 ### 기본 응답 
 
 #### 사용자가 Play에 진입시 안내 응답
 
-- 
-- 
-- 
-
 #### Play를 종료할 때의 응답	
 
-- 
--
-- 
-
 #### 사용자가 Play에서 처리할 수 없는 발화를 한 경우	
-
--
--
--
 
 ## Task List
 
@@ -41,6 +29,34 @@
 
 ### health
 `/health` returns status code `200` with `OK`
+
+### getSchool
+
+```json
+{
+    "version": "2.0",
+    "action": {
+        "actionName": "getSchool",
+        "parameters": {
+            "scname": {
+                "type": "SCHOOL_NAME",
+                "value": "은여울중학교"
+            }
+        }
+    },
+}
+```
+
+```json
+{
+    "version": "2.0",
+    "resultCode": "OK",
+    "output": {
+        "scmeal": "2018년 11월 23일의 점심은 귤, 기장밥, 근대된장국(중), 안동찜닭(중), 도라지진미채볶음(중), 깍두기입니다.",
+        "scschedule": "11월 일정입니다. 2일은 창체의날, 3일은 토요휴업일, 5일은 음주흡연예방교육, 10일은 토요휴업일, 15일은 대입수능시험일 그리고 창체의날, 17일은 토요휴업일, 19일은 인터넷중독예방교육, 24일은 토요휴업일, 26일은 아동학대예방교육, 29일은 2차지필평가(3학년)입니다."
+    }
+}
+```
 
 ### getMeal
 
@@ -83,13 +99,34 @@
 }
 ```
 
-### getQuote
+### getSchedule
 
 ```json
 {
     "version": "2.0",
     "action": {
-        "actionName": "getQuote",
+        "actionName": "getMeal",
+        "parameters": {
+            "name": {
+                "type": "SCHOOL_NAME",
+                "value": "은여울중학교"
+            },
+            "month": {
+                "type": "BID_DT_YMONTH",
+                "value": "11월"
+            }
+        }
+    },
+}
+```
+
+### getKorQuote
+
+```json
+{
+    "version": "2.0",
+    "action": {
+        "actionName": "getKorQuote",
         "parameters": {}
     },
 }
@@ -102,6 +139,29 @@
     "output": {
         "quote": "나는 내 인생의 나머지 부분을 위해 내 경력을 연기 할 수 있다면 좋겠다.",
         "author": "클로이 모렐츠"
+    }
+}
+```
+
+### getEngQuote
+
+```json
+{
+    "version": "2.0",
+    "action": {
+        "actionName": "getEngQuote",
+        "parameters": {}
+    },
+}
+```
+
+```json
+{
+    "version": "2.0",
+    "resultCode": "OK",
+    "output": {
+        "en-quote": "The words that a father speaks to his children in the privacy of home are not heard by the world, but, as in whispering galleries, they are clearly heard at the end, and by posterity.",
+        "en-author": "Jean Paul"
     }
 }
 ```
