@@ -54,16 +54,16 @@
         "actionName": "getMeal",
         "parameters": {
             "query": {
-                "type": "string",
+                "type": "SCHOOL_NAME",
                 "value": "은여울중학교"
             },
             "meal_type": {
-                "type": "int",
-                "value": 2
+                "type": "BID_TI_DURATION",
+                "value": "점심"
             },
             "days": {
-                "type": "string",
-                "value": 0
+                "type": "BIT_DT_DAY",
+                "value": "TODAY"
             }
         }
     },
@@ -72,9 +72,9 @@
 
 | 이름         | 타입      | 설명        |
 | :---------- | :------- | :--------- |
-| `query`     | `string` | 검색할 학교 이름 및 키워드 |
-| `meal_type` | `int`    | 급식 종류(아침/조식: `1`, 점심/중식: `2`, 저녁/석식: `3`) |
-| `days`      | `int`    | 오늘로부터 조회할 날짜까지의 날 수 |
+| `query`     | `SCHOOL_NAME` | 검색할 학교 이름 및 키워드 |
+| `meal_type` | `BID_TI_DURATION`    | 급식 종류(아침/조식: `1`, 점심/중식: `2`, 저녁/석식: `3`) |
+| `days`      | `BID_DT_DAY`    | 그끄제, 그제, 어제, 오늘, 내일, 모레, 글피 |
 
 ```json
 {

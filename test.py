@@ -5,18 +5,18 @@ r = requests.post('http://0.0.0.0:3000/getMeal', json={
         "actionName": "getMeal",
         "parameters": {
             "query": {
-                "type": "string",
+                "type": "SCHOOL_NAME",
                 "value": "은여울중학교"
             },
             "meal_type": {
-                "type": "int",
-                "value": 2
+                "type": "BID_TI_DURATION",
+                "value": "점심"
             },
             "days": {
-                "type": "string",
-                "value": 0
+                "type": "BIT_DT_DAY",
+                "value": "오늘"
             }
         }
-    }
+    },
 })
 print(r.text)

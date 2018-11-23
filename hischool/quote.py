@@ -1,9 +1,11 @@
 import json, requests
-def quote():
+def getQuote():
     data = requests.get("https://talaikis.com/api/quotes/random/").text
     pdata = json.loads(data)
-    text1 = pdata['quote'] + " by " + pdata['author']
-    return text1
+    return {
+        'quote': pdata['quote'], 
+        'author': pdata['author']
+    }
 
 if __name__ == '__main__':
     text = quote()
