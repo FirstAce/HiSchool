@@ -38,6 +38,7 @@
 
 ## API
 
+
 ### health
 `/health` returns status code `200` with `OK`
 

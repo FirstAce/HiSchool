@@ -14,7 +14,7 @@ from flask import (
 def healthCheck():
     return 'OK'
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['POST'])
 def home():
     req = request.json
     print(request.json)
@@ -27,4 +27,6 @@ def home():
         return getEngQuote()
     elif action == 'getSchedule':
         return getSchedule(req)
+    elif action == 'getSchool':
+        return getSchool(req)
     return ''

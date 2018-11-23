@@ -1,6 +1,7 @@
 from hischool.meal import parseMeal
 from hischool.quote import parseQuote
 from hischool.schedule import parseSchedule
+from datetime import date
 import json
 
 def getMeal(req):
@@ -74,3 +75,32 @@ def getEngQuote():
         'output': parseQuote()
     }
     return json.dumps(resp, ensure_ascii=False, indent=4)
+
+def getSchool(req):
+    # scname
+    query = req['action']['parameters']['scname']['value']
+    meal_type = 2
+    days = 0
+    meal, q_date, q_type = parseMeal(query, meal_type, days)
+    if meal:
+        meal = q_date + '의 ' + q_type + '은 ' + ', '.join(meal) + '입니다.'
+    else:
+        meal = q_date + '에는 ' + q_type + '이 없습니다.'
+    query_month = date.today().month # DT_YMONTH
+    this = parseSchedule(query, query_month)
+    try:
+        this = {k: v.replace('\n\n', ' 그리고 ') for k, v in this.items() if v}
+        result = ', '.join([str(key) + '일은 ' + this[key] for key in this])
+        result = str(query_month) + '월 일정입니다. ' + result + '입니다.'
+    except:
+        result = this
+    resp = { 
+        'version': '2.0', 
+        'resultCode': 'OK',
+        'output': {
+            'meal': meal,
+            'schedule': result
+        } 
+    }
+    return json.dumps(resp, ensure_ascii=False, indent=4)
+    
