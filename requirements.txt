@@ -3,3 +3,4 @@ sqlalchemy >= 1.2.5
 flask_sqlalchemy >= 2.3.2
 requests >= 2.20.0
 beautifulsoup4 >= 4.6.0
+py_translator >= 1.8.9

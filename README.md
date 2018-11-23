@@ -129,11 +129,11 @@ http://stu.goe.go.kr/sts_sci_md01_001.do?schulCode=J100006779&schulCrseScCode=3&
 | :------- | :--------- |
 | `string` | 식단을 파싱할 NEIS URL |
 
-#### getMeal
+#### parseMeal
 급식을 가져온다.
 
 ```py
-getMeal('은여울중학교', 2, 0) # 은여울중학교, 점심(2), 오늘로부터 0일 데이터
+parseMeal('은여울중학교', 2, 0) # 은여울중학교, 점심(2), 오늘로부터 0일 데이터
 ```
 
 | 이름         | 타입      | 설명        |

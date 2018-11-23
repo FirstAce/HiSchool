@@ -46,12 +46,15 @@ def searchSchool(query):
         data={ 'criteria': 'pageIndex=1&bsnmNm=' + urllib.parse.quote_plus(query) }).text
     for result in BeautifulSoup(html, 'html.parser').find_all('tbody')[1].find_all('tr'):
         search_item = [data.string for data in result.find_all('td')]
-        search_result = {
-            'name': search_item[1],
-            'sccode': search_item[2],
-            'address': search_item[3],
-        }
-        break
+        try:
+            search_result = {
+                'name': search_item[1],
+                'sccode': search_item[2],
+                'address': search_item[3],
+            }
+            break
+        except IndexError:
+            return None
     search_result['type'] = getSchoolType(search_result['name'])
     search_result['office'] = getEduOfficeURL(search_result['address'])
     return search_result
@@ -71,7 +74,7 @@ def getMealTableURL(school_info, meal_type, query_date):
         '&schYmd=' + query_date # 'yyyy.mm.dd' formatted string
     )
 
-def getMeal(query, meal_type, days): 
+def parseMeal(query, meal_type, days): 
     # query: keyword to search school name
     # meal_type: in [1, 2, 3]
     # days: how many days to query from now?
@@ -97,7 +100,7 @@ def getMeal(query, meal_type, days):
     data = soup.find_all('tr')[2].find_all('td') # 식단표 부분 데이터만 찾아서 저장
     try:
         data = str(BeautifulSoup(html, 'html.parser').find_all('tr')[2].find_all('td')[day])
-        for filter_data in ['[', ']', '<td class="textC">', '<td class="textC last">', '</td>', '.']:
+        for filter_data in ['[', ']', '<td class="textC">', '<td class="textC last">', '</td>', '.', '"']:
             data = data.replace(filter_data, '') # filter html tags
         data = data.split('<br/>')
         data = data[:len(data)-1]
@@ -111,4 +114,4 @@ def getMeal(query, meal_type, days):
         return None
 
 if __name__ == '__main__':
-    print(getMeal('은여울중학교', 2, 0))
+    print(parseMeal('은여울중학교', 2, 0))
